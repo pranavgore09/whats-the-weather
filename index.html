@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+
+<html lang="em-US">
+
+<head>
+	<meta charset="UTF-8">
+
+	<title>Wats The Weather</title>
+	<!-- load  bse css -->
+	<link rel="stylesheet" href="base.css">
+</head>
+
+<body>
+	<!-- Loading JQUERY.JS -->
+	<script type="text/javascript" src="./js/libs/jquery.js"></script>
+	<!-- Loading UNDERSCORE.JS -->
+	<script type="text/javascript" src="./js/libs/underscore.js"></script>
+	<!-- Loading  BACKBONE.JS-->
+	<script type="text/javascript" src="./js/libs/backbone.js"></script>
+
+	<!-- Loading  CONFIG.JS-->
+	<script type="text/javascript" src="./js/config.js"></script>
+
+	<!-- Loading  CITY MODEL-->
+	<script type="text/javascript" src="./js/models/City.js"></script>
+	<!-- Loading  CITIES COLLECTION-->
+	<script type="text/javascript" src="./js/collections/MultipleCities.js"></script>
+	<!-- Loading  Views-->
+	<script type="text/javascript" src="./js/views/InformationView.js"></script>
+	<script type="text/javascript" src="./js/views/UserInputView.js"></script>
+	<!-- Loading  Utilities-->
+	<script type="text/javascript" src="./js/utils/common.js"></script>
+
+	<!-- Template to take input from user -->
+	<script type="text/template" id="userInputTemplate">
+		<label class="control-label" for="cityList"><b>Please Enter city name(s)<b></label>
+		<input type="text" id="cityList" placeholder="Comma separated list of cities" />
+		<input type="button" class="btn" id="submitBtn" value="Get weather" />
+	</script>
+
+	<!-- Templte to display the cell of the main table -->
+	<script type="text/template" id="tableCellTemplete">
+		<td><div>
+			<%= timer %> -> <%= description %>
+			<button class="btn btn-setting" onclick="showModal('<%= cityName %>','<%= key %>');" %><strong>More</strong></button>
+		</div></td>
+	</script>
+
+	<!-- Template to display city name and formatted date while showing city's particular day's history -->
+	<script type="text/template" id="tagLineTemplate">
+		<h4>Weeather conditions in <%= cityName %> on <%= displayDate %> hourly</h4>
+	</script>
+
+	<!-- Template to display row of particulatr city's particular day's history table -->
+	<script type="text/template" id="singleDayRow">
+		<tr>
+			<td><%= time %></td>
+			<td><%= pressure %></td>
+			<td><%= humidity %></td>
+			<td><%= temperature %></td>
+			<td><%= sea_level %></td>
+		<tr>
+	</script>
+
+	<!-- This modal view will be displayed while showing history of selected city for selected date -->
+	<div id="modal-view">
+		<div class="box span5">
+				<div class="box-header well">
+					<div id="tagLine">
+					</div>
+					<button class="btn btn-setting" onclick="closeModal();" >Back</button>
+				</div>
+				<div class="box-content">
+					<table border="1" id="singleDayWeather">
+						<tr>
+							<th>Time</th>
+							<th>Pressure</th>
+							<th>Humidity</th>
+							<th>Temperature</th>
+							<th>sea_level</th>
+						</tr>
+					</table>
+				</div>
+		</div>
+	</div>
+
+	<!-- Main container that will hold the loading GIF, header of home page, main table with minimal contents -->
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div id="loader">
+    		<div  id="loader-information" style="display:table-cell; vertical-align:middle; text-align: center;">
+    			<strong> Fetching weather contents...
+    				This will take few more seconds..
+    			</strong>
+				<br/>
+				<img src="spinner.gif" />	
+			</div>
+		</div>
+
+
+		<div class="alert alert-info">
+			<b>Welcome to "Wat's the Weather"</b>
+		</div>
+
+		<div id="mainDivForCityWeather"></div>
+		<div class="alert alert-success">
+			<strong> After fetching details, each cell in the table will describe the weather condition at a particular time. Click on 'more' to get details</strong>
+		</div>
+		<table border=1 id="mainTable" class="table table-striped table-bordered">
+			<tr id="cities">
+				<td></td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+	<script type="text/javascript">
+
+		// define 30 days from today 
+		// Show this list in table format by default
+		var i=1;
+		var today = new Date();
+		// make this global scope as it will be used while showing formatted date anywhere in the program
+		var months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'August', 'Sept', 'Oct', 'Nov', 'Dec'];
+		var lastDay,rawDateStr, formattedDate = "";
+		// append rows having date as first column to mainTable of the page
+		for(i=1;i<30;i++){
+			lastDay = new Date(today-(24*60*60*i*1000));
+			rawDateStr = lastDay.getDate() + "_" + lastDay.getMonth() + "_" + lastDay.getFullYear();
+			formattedDate = lastDay.getDate() + " " + months[lastDay.getMonth()] + " " + lastDay.getFullYear();
+			$("#mainTable").append("<tr id=" + rawDateStr +"><td> " + formattedDate + "</td></tr>");
+		}
+		
+		// fade out loader
+		$("#loader").fadeOut(500);
+		// fade out modal veiw
+		$("#modal-view").fadeOut(10);
+
+
+		// Collection object remains available throught out the application
+		var multipleCitiesObject = new MultipleCities();
+
+		// An instance of the "InformationView" view to show information of city weather
+		var mainView = new InformationView({collection:multipleCitiesObject});
+
+		// A instance of the view "UserInputView" to accept user data
+		var inputView = new UserInputView({el:$("#mainDivForCityWeather")});		
+
+		
+	</script>
+
+</body>
+
+</html>
+
+
+
+
+
