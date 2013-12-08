@@ -7,10 +7,10 @@ Get history of weather for input city names.
 This is my first backbone appliation that actually does something :). It fetches weather history for cities.
 
 ### What is does
-1. Accepts comman separated city names.
+1. Accepts comma separated city names.
 2. Fetches weather information from [openweathermap](http://openweathermap.org/API)
 3. Displays it in tabular format
-4. Every cell has more button, which shows history of that city for given date.
+4. Every cell has "More" button, which shows history of that city for given date.
 
 ### How to use
 1. Download the ZIP.
