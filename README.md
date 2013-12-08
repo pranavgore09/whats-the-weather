@@ -4,7 +4,7 @@ wats-the-weather
 Get history of weather for input city names. [using backbonejs]
 
 ### What it is
-This is my first backbone appliation that actually does something :). It fetches weather history for cities.
+This is my first backbone appliation that actually does something :). It fetches weather history for cities. CSS is from [here](http://usman.it/themes/charisma/)
 
 ### What is does
 1. Accepts comma separated city names.
