@@ -1,7 +1,7 @@
 wats-the-weather
 ================
 
-Get history of weather for input city names.
+Get history of weather for input city names. [using backbonejs]
 
 ### What it is
 This is my first backbone appliation that actually does something :). It fetches weather history for cities.
