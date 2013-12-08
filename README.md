@@ -1,4 +1,4 @@
-wats-the-weather
+whats-the-weather
 ================
 
 Get history of weather for input city names. [using backbonejs]
