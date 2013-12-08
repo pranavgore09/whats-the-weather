@@ -21,5 +21,3 @@ This is my first backbone appliation that actually does something :). It fetches
 6. Be patient and let the fetching finish.
 7. Click on "More" button to get more information about the city weather for that particular day.
 
-### Thanks to
-1. Internet :)
