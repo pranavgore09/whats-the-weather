@@ -6,7 +6,7 @@ Get history of weather for input city names. [using backbonejs]
 ### What it is
 This is my first backbone appliation that actually does something :). It fetches weather history for cities. CSS is from [here](http://usman.it/themes/charisma/)
 
-### What is does
+### What it does
 1. Accepts comma separated city names.
 2. Fetches weather information from [openweathermap](http://openweathermap.org/API)
 3. Displays it in tabular format
